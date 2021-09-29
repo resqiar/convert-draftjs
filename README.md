@@ -1,11 +1,12 @@
 ## Convert DraftJS
+Easily convert the result of DraftJS into useful and easy to read.
+For example; Array of text, plain text, etc.
+
 <p>
 <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/resqiar/convert-draftjs/CI/main">
 <img src="https://badge.fury.io/js/convert-draftjs.svg" alt="npm version" height="18">
 <img alt="npm" src="https://img.shields.io/npm/dw/convert-draftjs">
 </p>
-Easily convert the result of DraftJS into useful and easy to read.
-For example; Array of text, plain text, etc.
 
 Content:
 - [Installation](#installation)
