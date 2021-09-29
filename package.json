@@ -8,7 +8,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -51,5 +51,18 @@
     "tsdx": "0.14.1",
     "tslib": "2.3.1",
     "typescript": "4.4.3"
-  }
+  },
+  "funding": {
+    "type": "individual",
+    "url": "http://buymeacoffee.com/resqiar"
+  },
+  "repository": "github:resqiar/convert-draftjs",
+  "keywords": [
+    "Draft.js",
+    "converter",
+    "array",
+    "Draftail",
+    "text",
+    "plain"
+  ]
 }
