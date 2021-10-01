@@ -1,32 +1,39 @@
 import { ParsedJson } from '../types/parsedjson';
-import { Options } from '../types/options';
 import { convertDraftToArray } from '..';
-
-interface ConvertToPlainOptions extends Options {
-  /**
-   * Join element of every blocks
-   * for example set join to ','
-   * will have result "Hello,World"
-   *
-   * default: space or ' '
-   */
-  join?: string | undefined;
-}
+import { ConvertToPlainOptions } from '../types/options';
+import { ConvertToPlainReturnType } from '../types/return';
 
 /**
  * @param draftResult (JSON or Strings)
  * @param options
- * @returns plain string and sums of characters
  */
 export default function convertDraftToPlain(
   draftResult: ParsedJson | string,
   options?: ConvertToPlainOptions
-): { result: string; chars: number } {
+): ConvertToPlainReturnType {
   const joinElement: string = options?.join ?? ' ';
+  /**
+   * Do you want to include char and word counter?
+   * if true it will return result with sum of chars and words.
+   * @default ' '
+   */
+  const isIncludeCounter: boolean = options?.includeCounter ?? false;
 
   const result: string = convertDraftToArray(draftResult, options).join(
     joinElement
   );
-  const counter: number = result.length;
-  return { result: result, chars: counter };
+
+  if (isIncludeCounter) {
+    const chars: number = result.length;
+    const words: number =
+      joinElement.length > 0
+        ? result.split(joinElement).filter(function(n) {
+            return n != joinElement;
+          }).length
+        : 1;
+
+    return { result: result, chars: chars, words: words };
+  }
+
+  return { result: result };
 }
