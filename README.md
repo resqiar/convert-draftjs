@@ -72,7 +72,7 @@ const result: string[] = convertDraftToArray(draftResult);
 Easily convert the result or the current state of DraftJS into plain strings.
 
 ```ts
-import { convertDraftToArray } from 'convert-draftjs';
+import { convertDraftToPlain } from 'convert-draftjs';
 
 convertDraftToPlain(draftjsResult);
 
