@@ -2,13 +2,13 @@ import { convertDraftToPlain } from '../src/index';
 import { rawData } from './mocks/data';
 
 describe('convertToPlain', () => {
-  it('The function should return string result and sums of chars', () => {
-    const expectedResult = { chars: 26, result: 'TEST A B C alert("Test!");' };
+  it('The function should return string result', () => {
+    const expectedResult = { result: 'TEST A B C alert("Test!");' };
     expect(convertDraftToPlain(rawData)).toEqual(expectedResult);
   });
 
   it('The function should return string result separated by comma', () => {
-    const expectedResult = { chars: 26, result: 'TEST,A,B,C,alert("Test!");' };
+    const expectedResult = { result: 'TEST,A,B,C,alert("Test!");' };
     expect(
       convertDraftToPlain(rawData, {
         join: ',',
@@ -17,10 +17,37 @@ describe('convertToPlain', () => {
   });
 
   it('The function should return string result with no separated', () => {
-    const expectedResult = { chars: 22, result: 'TESTABCalert("Test!");' };
+    const expectedResult = { result: 'TESTABCalert("Test!");' };
     expect(
       convertDraftToPlain(rawData, {
         join: '',
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('The function should return string result with char and word counter', () => {
+    const expectedResult = {
+      result: 'TEST A B C alert("Test!");',
+      chars: 26,
+      words: 5,
+    };
+    expect(
+      convertDraftToPlain(rawData, {
+        includeCounter: true,
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('The function should return string result with char and word counter even with join option', () => {
+    const expectedResult = {
+      result: 'TEST-A-B-C-alert("Test!");',
+      chars: 26,
+      words: 5,
+    };
+    expect(
+      convertDraftToPlain(rawData, {
+        includeCounter: true,
+        join: '-',
       })
     ).toEqual(expectedResult);
   });
