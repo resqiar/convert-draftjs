@@ -12,10 +12,13 @@ For example; Array of text, plain text, etc.
 Content:
 
 - [Installation](#installation)
+- [Basic Usage](#basic-usage)
 - [Convert to Array](#convert-to-array)
-- [Options](#options)
+- [Convert to Plain Text](#convert-to-plain-text)
+  - [Options](#special-options)
+- [Global Options](#global-options)
 
-## Installation
+# Installation
 
 ```bash
 # npm
@@ -25,9 +28,7 @@ npm install --save convert-draftjs
 yarn add convert-draftjs
 ```
 
-## Convert to Array
-
-Easily convert the result or the current state of DraftJS into an array of text.
+# Basic Usage
 
 #### Convert editor state directly
 
@@ -37,7 +38,7 @@ import { convertDraftToArray } from 'convert-draftjs';
 // from draftjs raw content state
 const result: string[] = convertDraftToArray(editorState.getCurrentContent());
 
-console.log(result); // ["Hello", "World", ...]
+// ["Hello", "World", ...]
 ```
 
 #### Convert from the database (usually stringified json)
@@ -48,12 +49,81 @@ import { convertDraftToArray } from 'convert-draftjs';
 // from database (JSON or string)
 const mockDataFromDatabase =
   '{"blocks":[{"key":"5aeg1","text":"TEST","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}';
+
 const result: string[] = convertDraftToArray(mockDataFromDatabase);
 
-console.log(result); // ["TEST"]
+// ["TEST"]
 ```
 
-## Options
+# Convert to Array
+
+Easily convert the result or the current state of DraftJS into an array of text.
+
+```typescript
+import { convertDraftToArray } from 'convert-draftjs';
+
+const result: string[] = convertDraftToArray(draftResult);
+
+// ["Hello", "World"]
+```
+
+# Convert to Plain Text
+
+Easily convert the result or the current state of DraftJS into plain strings.
+
+```ts
+import { convertDraftToPlain } from 'convert-draftjs';
+
+convertDraftToPlain(draftjsResult);
+
+// result
+{
+  result: 'Hello World',
+}
+```
+
+### Special Options
+
+`join: string | undefined`
+
+Default: ' '
+
+Set this options to anything to set join element between blocks. For example:
+
+```ts
+convertDraftToPlain(draftjsResult, {
+  join: '.',
+});
+
+// result
+{
+  result: 'Hello.World',
+}
+```
+
+<hr />
+
+`includeCounter: boolean`
+
+Default: false
+
+Do you want to include char and word counter?
+if true it will return result with sum of chars and words. This is very useful for example when you want to determine reading time for each content.
+
+```ts
+convertDraftToPlain(draftjsResult, {
+  includeCounter: true,
+});
+
+// result
+{
+  result: 'Hello World',
+  chars: 11,
+  words: 2,
+}
+```
+
+## Global Options
 
 #### select: [ 'all' | 'header-one' | 'unstyled' | 'code-block' ]
 
@@ -67,7 +137,7 @@ const codeBlock: string[] = convertDraftToArray(data, {
   select: ['code-block'],
 });
 
-console.log(codeBlock); // ["console.log();", "alert();", ...]
+// ["console.log();", "alert();", ...]
 ```
 
 #### includeBlank: boolean
@@ -81,5 +151,5 @@ const codeBlock: string[] = convertDraftToArray(data, {
   includeBlank: true,
 });
 
-console.log(codeBlock); // ["Hello", "", "World", "", ...]
+// ["Hello", "", "World", "", ...]
 ```

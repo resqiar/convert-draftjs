@@ -18,3 +18,19 @@ export interface Options {
    */
   includeBlank?: boolean;
 }
+
+export interface ConvertToPlainOptions extends Options {
+  /**
+   * Join element of every blocks
+   * for example set join to ','
+   * will have result "Hello,World"
+   *
+   * default: space or ' '
+   */
+  join?: string | undefined;
+  /**
+   * Do you want to include char and word counter?
+   * if true it will return result with sum of chars and words.
+   */
+  includeCounter?: boolean;
+}
